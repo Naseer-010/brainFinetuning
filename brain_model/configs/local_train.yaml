@@ -1,0 +1,54 @@
+# ╔══════════════════════════════════════════════════════════════╗
+# ║  Brain Model - Local GPU Training Config (LLaMA-Factory)   ║
+# ║  Qwen2.5-VL-7B-Instruct | QLoRA rank 32 | 4-bit bnb       ║
+# ╚══════════════════════════════════════════════════════════════╝
+
+### Model ###
+model_name_or_path: Qwen/Qwen2.5-VL-7B-Instruct
+trust_remote_code: true
+
+### Method ###
+stage: sft
+do_train: true
+finetuning_type: lora
+lora_rank: 32
+lora_alpha: 64
+lora_dropout: 0.05
+lora_target: all
+
+### Quantization (QLoRA — fits ~12GB+ VRAM) ###
+quantization_bit: 4
+quantization_method: bitsandbytes
+
+### Dataset ###
+dataset_dir: ../data/training
+dataset: brain_train
+template: qwen2_vl
+cutoff_len: 2048
+preprocessing_num_workers: 4
+
+### Output ###
+output_dir: ../brain_model/checkpoints/local
+logging_dir: ../brain_model/logs/local
+logging_steps: 10
+save_steps: 200
+save_total_limit: 2
+overwrite_output_dir: true
+
+### Training Hyperparameters ###
+per_device_train_batch_size: 1
+gradient_accumulation_steps: 16
+learning_rate: 2.0e-4
+num_train_epochs: 3.0
+lr_scheduler_type: cosine
+warmup_ratio: 0.1
+weight_decay: 0.01
+max_grad_norm: 1.0
+
+### Precision & Performance ###
+bf16: true
+flash_attn: fa2
+gradient_checkpointing: true
+
+### Reporting ###
+report_to: tensorboard

@@ -1,0 +1,17 @@
+# Data Processing Pipeline - Dependencies
+# ========================================
+
+# PDF Parsing (choose one)
+# magic-pdf[full]          # MinerU - best for scientific documents (recommended)
+# PyMuPDF                  # Fallback PDF parser
+
+# API Clients (for training data generation)
+anthropic>=0.30.0
+openai>=1.30.0
+
+# Utilities
+python-dotenv>=1.0.0
+tqdm>=4.65.0
+
+# Manim (for validation only — or use Docker)
+# manim>=0.18.0
