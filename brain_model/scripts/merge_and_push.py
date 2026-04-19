@@ -5,6 +5,9 @@ Brain Model — Merge LoRA Adapters & Push to Hugging Face
 Fuses the trained LoRA weights into the base Qwen2.5-VL-7B-Instruct model
 and uploads the merged model to your Hugging Face repository.
 
+Uses Qwen2VLForConditionalGeneration (vision-language model) and AutoProcessor
+instead of AutoModelForCausalLM / AutoTokenizer.
+
 Usage:
     python merge_and_push.py                          # auto-detect checkpoint
     python merge_and_push.py --checkpoint-dir ../checkpoints/dgx
@@ -55,38 +58,34 @@ def merge_and_push(
     push: bool = True,
 ):
     """Merge LoRA adapters into base model and optionally push to HF."""
-    from peft import PeftModel, PeftConfig
-    from transformers import AutoModelForCausalLM, AutoTokenizer, AutoProcessor
+    from peft import PeftModel
+    from transformers import Qwen2VLForConditionalGeneration, AutoProcessor
     from shared.hf_auth import ensure_hf_auth, get_hf_username
 
-    print(f"═══════════════════════════════════════════════════════════")
-    print(f"  🧠 Brain Model — Merge & Push")
+    print("═══════════════════════════════════════════════════════════")
+    print("  Brain Model — Merge & Push")
     print(f"  Base model:   {base_model}")
     print(f"  LoRA adapter: {checkpoint_dir}")
-    print(f"═══════════════════════════════════════════════════════════\n")
+    print("═══════════════════════════════════════════════════════════\n")
 
-    # ── Load base model ──
-    print("Loading base model...")
-    model = AutoModelForCausalLM.from_pretrained(
+    # ── Load base model (VL architecture, not causal LM) ──
+    print("Loading base model (Qwen2VL)...")
+    model = Qwen2VLForConditionalGeneration.from_pretrained(
         base_model,
         torch_dtype="auto",
         trust_remote_code=True,
         device_map="auto",
     )
 
+    # ── Load processor (handles both text tokens and image patches) ──
+    print("Loading processor...")
+    processor = AutoProcessor.from_pretrained(base_model, trust_remote_code=True)
+
     # ── Load & merge LoRA ──
     print("Loading LoRA adapter...")
     model = PeftModel.from_pretrained(model, checkpoint_dir)
     print("Merging LoRA weights into base model...")
     model = model.merge_and_unload()
-
-    # ── Load tokenizer/processor ──
-    print("Loading tokenizer & processor...")
-    tokenizer = AutoTokenizer.from_pretrained(base_model, trust_remote_code=True)
-    try:
-        processor = AutoProcessor.from_pretrained(base_model, trust_remote_code=True)
-    except Exception:
-        processor = None
 
     # ── Save locally ──
     if not output_dir:
@@ -95,9 +94,7 @@ def merge_and_push(
 
     print(f"Saving merged model to: {output_dir}")
     model.save_pretrained(output_dir)
-    tokenizer.save_pretrained(output_dir)
-    if processor:
-        processor.save_pretrained(output_dir)
+    processor.save_pretrained(output_dir)
 
     # ── Push to HF ──
     if push:
@@ -108,9 +105,7 @@ def merge_and_push(
 
         print(f"\nPushing to Hugging Face: {hf_repo}")
         model.push_to_hub(hf_repo, private=True)
-        tokenizer.push_to_hub(hf_repo, private=True)
-        if processor:
-            processor.push_to_hub(hf_repo, private=True)
+        processor.push_to_hub(hf_repo, private=True)
         print(f"✅ Successfully pushed to: https://huggingface.co/{hf_repo}")
     else:
         print(f"\n✅ Merged model saved locally at: {output_dir}")

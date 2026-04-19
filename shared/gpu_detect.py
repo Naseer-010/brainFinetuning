@@ -30,7 +30,7 @@ DGX_GPU_PATTERNS = [
 ]
 
 # Minimum VRAM (in MiB) to consider a GPU "datacenter-class"
-DGX_VRAM_THRESHOLD_MIB = 40_000  # 40 GB
+DGX_VRAM_THRESHOLD_MIB = 24_000  # 24 GB — catches 32GB A100 PCIe variants too
 
 
 def _run_nvidia_smi(query: str) -> Optional[str]:

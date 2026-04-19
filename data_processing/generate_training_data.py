@@ -3,17 +3,17 @@
 Training Data Generator
 -----------------------
 Takes parsed question-solution JSON pairs and calls a frontier LLM API
-(Claude 3.5 Sonnet or GPT-4o) to synthesize fine-tuning data.
+(Claude 3.5 Sonnet, GPT-4o, or local Ollama) to synthesize fine-tuning data.
 
 Produces:
-    - brain_train.json : scenes-array schema matching orchestrator BrainOutput
-    - coder_train.json : validated Manim CE code (only renders that compile)
+    - brain_train.json : sharegpt format with multimodal messages (scenes-array schema)
+    - coder_train.json : sharegpt format with validated Manim CE code
 
 Usage:
     python generate_training_data.py \
         --parsed-dir ../data/parsed \
         --output-dir ../data/training \
-        --api claude                    # or "openai"
+        --api claude                    # or "openai" or "ollama"
 
 Prerequisites:
     Set ANTHROPIC_API_KEY or OPENAI_API_KEY in your .env file.
@@ -28,6 +28,7 @@ import tempfile
 import time
 from pathlib import Path
 from typing import Optional
+
 import requests
 
 
@@ -39,6 +40,11 @@ try:
     load_dotenv(Path(__file__).parent.parent / ".env")
 except ImportError:
     pass
+
+
+# ─── Constants ──────────────────────────────────────────────────────────────
+
+SAVE_EVERY = 10  # Checkpoint save interval
 
 
 # ─── System Prompts ─────────────────────────────────────────────────────────
@@ -162,7 +168,7 @@ def call_ollama(
         "options": {"temperature": 0.2},
     }
     try:
-        response = requests.post(url, json=payload)
+        response = requests.post(url, json=payload, timeout=120)
         response.raise_for_status()
         return response.json().get("response")
     except Exception as e:
@@ -171,6 +177,7 @@ def call_ollama(
 
 
 def call_api(system: str, user_message: str, api: str = "claude") -> Optional[str]:
+    """Unified API caller."""
     if api == "claude":
         return call_claude(system, user_message)
     elif api == "openai":
@@ -253,21 +260,57 @@ def validate_manim_code(code: str, full_render: bool = False) -> tuple[bool, str
     return True, ""
 
 
+# ─── Checkpoint / Resume ────────────────────────────────────────────────────
+
+
+def _load_checkpoint(output_file: Path) -> tuple[list, set]:
+    """Load existing data and return (data_list, processed_question_ids)."""
+    if output_file.exists():
+        with open(output_file) as f:
+            data = json.load(f)
+        processed = set()
+        for entry in data:
+            # Build a key from metadata
+            meta = entry.get("metadata", {})
+            key = f"{meta.get('institute', '')}_{meta.get('question_number', '')}_{meta.get('source', '')}"
+            processed.add(key)
+        print(f"  Resuming from checkpoint: {len(data)} entries already processed")
+        return data, processed
+    return [], set()
+
+
+def _question_key(question: dict) -> str:
+    """Build a unique key for a question to track processing."""
+    return f"{question.get('institute', '')}_{question.get('question_number', '')}_{question.get('source', '')}"
+
+
+def _save_checkpoint(data: list, output_file: Path):
+    """Save data to file as a checkpoint."""
+    with open(output_file, "w") as f:
+        json.dump(data, f, indent=2, ensure_ascii=False)
+
+
 # ─── Data Generation ────────────────────────────────────────────────────────
 
 
 def generate_brain_entry(
-    question: dict, solution: Optional[dict], api: str
+    question: dict,
+    solution: Optional[dict],
+    api: str,
+    image_path: Optional[str] = None,
 ) -> Optional[dict]:
-    """Generate a brain training entry from a question-solution pair."""
-    user_msg = (
+    """Generate a brain training entry in sharegpt format.
+
+    If image_path is provided, creates a multimodal user message (for VL models).
+    """
+    user_text = (
         f"Question #{question['question_number']} ({question['institute'].title()}):\n"
     )
-    user_msg += question["text"]
+    user_text += question["text"]
     if solution:
-        user_msg += f"\n\nReference solution:\n{solution['solution_text']}"
+        user_text += f"\n\nReference solution:\n{solution['solution_text']}"
 
-    response = call_api(BRAIN_SYSTEM_PROMPT, user_msg, api)
+    response = call_api(BRAIN_SYSTEM_PROMPT, user_text, api)
     if response is None:
         return None
 
@@ -276,7 +319,7 @@ def generate_brain_entry(
         parsed = json.loads(response)
         if "scenes" not in parsed or not isinstance(parsed["scenes"], list):
             print("  ⚠ Response missing 'scenes' array, retrying...")
-            response = call_api(BRAIN_SYSTEM_PROMPT, user_msg, api)
+            response = call_api(BRAIN_SYSTEM_PROMPT, user_text, api)
             if response:
                 parsed = json.loads(response)
                 if "scenes" not in parsed or not isinstance(parsed["scenes"], list):
@@ -286,20 +329,32 @@ def generate_brain_entry(
                 return None
     except json.JSONDecodeError:
         print("  ⚠ Response not valid JSON, retrying...")
-        response = call_api(BRAIN_SYSTEM_PROMPT, user_msg, api)
+        response = call_api(BRAIN_SYSTEM_PROMPT, user_text, api)
         if response:
             try:
-                parsed = json.loads(response)
+                json.loads(response)
             except json.JSONDecodeError:
                 print("  ✗ Retry also invalid JSON. Skipping.")
                 return None
         else:
             return None
 
+    # ── Build sharegpt format ──
+    # Multimodal user message if image is available
+    if image_path and os.path.exists(image_path):
+        user_content = [
+            {"type": "image", "image": f"file://{os.path.abspath(image_path)}"},
+            {"type": "text", "text": user_text},
+        ]
+    else:
+        user_content = user_text
+
     return {
-        "system": BRAIN_SYSTEM_PROMPT,
-        "instruction": question["text"],
-        "output": response,
+        "messages": [
+            {"role": "system", "content": BRAIN_SYSTEM_PROMPT},
+            {"role": "user", "content": user_content},
+            {"role": "assistant", "content": response},
+        ],
         "metadata": {
             "question_number": question["question_number"],
             "institute": question["institute"],
@@ -325,16 +380,36 @@ def generate_coder_entry(
 ) -> Optional[dict]:
     """Generate a coder training entry with Manim validation.
 
-    Retries up to max_attempts times if the generated code fails validation.
-    Only validated, compiling code enters the training set.
+    Retries up to max_attempts times. On retry, feeds the error back to the LLM
+    so it can fix the code instead of blindly regenerating.
     """
+    # Get the assistant response (brain output) from sharegpt messages
+    brain_output = ""
+    for msg in brain_entry.get("messages", []):
+        if msg["role"] == "assistant":
+            brain_output = msg["content"]
+            break
+
     user_msg = (
         "Create a Manim animation for this physics/math visualization:\n\n"
-        f"{brain_entry['output']}"
+        f"{brain_output}"
     )
 
+    last_code = ""
+    last_error = ""
+
     for attempt in range(max_attempts):
-        response = call_api(CODER_SYSTEM_PROMPT, user_msg, api)
+        # On retry, feed the error back so the LLM can fix it
+        if attempt > 0 and last_code and last_error:
+            retry_msg = (
+                f"The following Manim code has an error:\n```python\n{last_code}\n```\n"
+                f"Error: {last_error}\n\n"
+                "Fix the code and return ONLY the corrected Python code."
+            )
+            response = call_api(CODER_SYSTEM_PROMPT, retry_msg, api)
+        else:
+            response = call_api(CODER_SYSTEM_PROMPT, user_msg, api)
+
         if response is None:
             continue
 
@@ -344,12 +419,16 @@ def generate_coder_entry(
         valid, error = validate_manim_code(code, full_render=full_render)
         if valid:
             return {
-                "system": CODER_SYSTEM_PROMPT,
-                "instruction": brain_entry["output"],
-                "output": code,
+                "messages": [
+                    {"role": "system", "content": CODER_SYSTEM_PROMPT},
+                    {"role": "user", "content": brain_output},
+                    {"role": "assistant", "content": code},
+                ],
                 "metadata": brain_entry.get("metadata", {}),
             }
         else:
+            last_code = code
+            last_error = error
             print(
                 f"  ⚠ Attempt {attempt + 1}/{max_attempts} failed validation: "
                 f"{error[:100]}"
@@ -380,7 +459,9 @@ def main():
     parser.add_argument(
         "--output-dir", default=str(Path(__file__).parent.parent / "data" / "training")
     )
-    parser.add_argument("--api", choices=["claude", "openai"], default="claude")
+    parser.add_argument(
+        "--api", choices=["claude", "openai", "ollama"], default="claude"
+    )
     parser.add_argument(
         "--limit", type=int, default=0, help="Max questions to process (0=all)"
     )
@@ -392,11 +473,24 @@ def main():
         action="store_true",
         help="Full Manim render validation (slower but catches runtime errors)",
     )
+    parser.add_argument(
+        "--images-dir",
+        default="",
+        help="Dir with page images (PNG) for multimodal brain training. "
+        "Files should be named like chaitanya_1_p0.png matching the PDF stem.",
+    )
+    parser.add_argument(
+        "--no-resume",
+        action="store_true",
+        help="Don't resume from existing checkpoint — start fresh",
+    )
 
     args = parser.parse_args()
     parsed_dir = Path(args.parsed_dir)
     output_dir = Path(args.output_dir)
     output_dir.mkdir(parents=True, exist_ok=True)
+
+    images_dir = Path(args.images_dir) if args.images_dir else None
 
     # Load parsed data
     all_questions = []
@@ -424,47 +518,93 @@ def main():
 
     print(f"Processing {len(pairs)} question-solution pairs using {args.api} API\n")
 
-    # ── Generate brain data ──
-    brain_data = []
+    # ── Generate brain data (with checkpoint/resume) ──
+    brain_file = output_dir / "brain_train.json"
+
+    if args.no_resume:
+        brain_data = []
+        processed_keys = set()
+    else:
+        brain_data, processed_keys = _load_checkpoint(brain_file)
+
     for i, (q, s) in enumerate(pairs):
+        key = _question_key(q)
+        if key in processed_keys:
+            continue  # Already processed in previous run
+
         print(
             f"[Brain {i + 1}/{len(pairs)}] Q#{q['question_number']} ({q['institute']})"
         )
-        entry = generate_brain_entry(q, s, args.api)
+
+        # Find page image if available
+        img_path = None
+        if images_dir:
+            stem = Path(q.get("source", "")).stem
+            # Try common naming patterns
+            for pattern in [f"{stem}_*.png", f"{stem}.png"]:
+                matches = list(images_dir.glob(pattern))
+                if matches:
+                    img_path = str(matches[0])
+                    break
+
+        entry = generate_brain_entry(q, s, args.api, image_path=img_path)
         if entry:
             brain_data.append(entry)
+            processed_keys.add(key)
             print(f"  ✓ Generated")
         else:
             print(f"  ✗ Failed")
+
+        # Checkpoint save every N entries
+        if (i + 1) % SAVE_EVERY == 0:
+            _save_checkpoint(brain_data, brain_file)
+            print(f"  💾 Checkpoint saved ({len(brain_data)} entries)")
+
         time.sleep(0.5)  # Rate limit courtesy
 
-    brain_file = output_dir / "brain_train.json"
-    with open(brain_file, "w") as f:
-        json.dump(brain_data, f, indent=2, ensure_ascii=False)
+    # Final save
+    _save_checkpoint(brain_data, brain_file)
     print(f"\nSaved {len(brain_data)} brain entries → {brain_file}")
 
-    # ── Generate coder data ──
+    # ── Generate coder data (with checkpoint/resume) ──
     if not args.skip_coder:
-        coder_data = []
+        coder_file = output_dir / "coder_train.json"
+
+        if args.no_resume:
+            coder_data = []
+            coder_processed = set()
+        else:
+            coder_data, coder_processed = _load_checkpoint(coder_file)
+
         coder_failed = 0
         for i, entry in enumerate(brain_data):
+            meta = entry.get("metadata", {})
+            key = _question_key(meta)
+            if key in coder_processed:
+                continue
+
             print(
-                f"[Coder {i + 1}/{len(brain_data)}] Q#{entry['metadata']['question_number']}"
+                f"[Coder {i + 1}/{len(brain_data)}] Q#{meta.get('question_number', '?')}"
             )
             coder_entry = generate_coder_entry(
                 entry, args.api, full_render=args.validate_render
             )
             if coder_entry:
                 coder_data.append(coder_entry)
+                coder_processed.add(key)
                 print(f"  ✓ Validated & accepted")
             else:
                 coder_failed += 1
                 print(f"  ✗ Failed validation — excluded from dataset")
+
+            # Checkpoint
+            if (i + 1) % SAVE_EVERY == 0:
+                _save_checkpoint(coder_data, coder_file)
+                print(f"  💾 Checkpoint saved ({len(coder_data)} entries)")
+
             time.sleep(0.5)
 
-        coder_file = output_dir / "coder_train.json"
-        with open(coder_file, "w") as f:
-            json.dump(coder_data, f, indent=2, ensure_ascii=False)
+        _save_checkpoint(coder_data, coder_file)
         print(f"\nSaved {len(coder_data)} coder entries → {coder_file}")
         if coder_failed:
             print(f"  ⚠ {coder_failed} entries failed validation and were excluded")
