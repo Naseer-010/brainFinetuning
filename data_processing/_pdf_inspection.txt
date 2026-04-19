@@ -1,0 +1,2053 @@
+﻿
+================================================================================
+FILE: chaitanya_1.pdf  |  Folder: questions  |  Pages: 27
+================================================================================
+
+--- Page 1 (chars: 2960) ---
+       SRI CHAITANYA IIT ACADEMY, INDIA                           31-12-25_ Sr. XL-500, Sr.S60(N&S), Elite, IAS & LIIT _Jee-Main_GTM-07_Q.P 
+Sec: Sr. XL-500, Sr.S60(N&S),L Elite, IAS & LIIT                                                       Page 1
+ 
+   Sri Chaitanya IIT Academy.,India. 
+∩Çá∩é╡ A.P ∩é╡ T.S ∩é╡ KARNATAKA ∩é╡ TAMILNADU   ∩é╡ MAHARASTRA ∩é╡ DELHI   ∩é╡ RANCHI 
+A right Choice for the Real Aspirant 
+ICON Central Office - Madhapur - Hyderabad 
+SEC: Sr. XL-500, Sr.S60(N&S), Elite, IAS & LIIT         JEE-MAIN 
+                             Date: 31-12-2025 
+Time: 09.00Am to 12.00Pm                                           GTM-07                                    Max. Marks: 300 
+IMPORTANT INSTRUCTION: 
+1.  
+Immediately fill in the Admission number on this page of the Test Booklet with Blue/Black Ball Point Pen only. 
+2.  
+The candidates should not write their Admission Number anywhere (except in the specified space) on the Test 
+Booklet/ Answer Sheet. 
+3.  
+The test is of 3 hours duration. 
+4.  
+The Test Booklet consists of 75 Questions. The maximum marks are 300. 
+5.  
+There are three parts in the question paper 1,2,3 consisting of Mathematics, Physics and Chemistry 
+ 
+ having 25 Questions in each subject and subject having two sections. 
+ 
+(I) Section ΓÇôI contains 20 Multiple Choice Questions with only one correct option. 
+ 
+Marking scheme: +4 for correct answer, 0 if not attempt and -1 in all other cases. 
+ 
+(II) Section-II contains 05 Numerical Value Type Questions.  
+    ΓêÄ 
+The Answer should be within 0 to 9999. If the Answer is in Decimal then round off to the Nearest Integer value 
+(Example i,e. If answer is above 10 and less than 10.5 round off is 10 and If answer is from 10.5 and less than 11 
+round off is 11).  
+ 
+To cancel any attempted question bubble on the question number box. 
+ 
+For example: To cancel attempted Question 21. Bubble on 21 as shown below 
+ 
+.
+  
+ 
+Question Answered for Marking 
+Question Cancelled for Marking 
+ 
+Marking scheme: +4 for correct 
+...[truncated]
+
+--- Page 2 (chars: 439) ---
+       SRI CHAITANYA IIT ACADEMY, INDIA                           31-12-25_ Sr. XL-500, Sr.S60(N&S), Elite, IAS & LIIT _Jee-Main_GTM-07_Q.P 
+Sec: Sr. XL-500, Sr.S60(N&S),L Elite, IAS & LIIT                                                       Page 2
+ 
+31-12-2025_Sr. XL-500, Sr.S60(N&S), Elite, IAS & LIIT_Jee-Main_GTM-07_Test Syllabus 
+MATHEMATICS    :  Total Syllabus    
+PHYSICS 
+: Total Syllabus 
+CHEMISTRY 
+  : Total Syllabus 
+ 
+ 
+ 
+
+
+
+--- Page 3 (chars: 1999) ---
+       SRI CHAITANYA IIT ACADEMY, INDIA                           31-12-25_ Sr. XL-500, Sr.S60(N&S), Elite, IAS & LIIT _Jee-Main_GTM-07_Q.P 
+Sec: Sr. XL-500, Sr.S60(N&S),L Elite, IAS & LIIT                                                       Page 3
+ 
+MATHEMATICS   
+ 
+ 
+ 
+ 
+ 
+                                Max Marks: 100 
+SECTION-I  
+(SINGLE CORRECT ANSWER TYPE) 
+This section contains 20 Multiple Choice Questions. Each question has 4 options (1), (2), (3) and (4) for its answer, out of 
+which ONLY ONE option can be correct. 
+Marking scheme: +4 for correct answer, 0 if not attempted and ΓÇô1 in all other cases. 
+1. 
+Let ABC be a triangle. Let A be the point ∩Ç¿
+∩Ç⌐
+1,2 , y
+x
+∩Ç╜ is the perpendicular bisector of AB 
+and x
+2y
+1
+0
+∩Ç¡
+∩Ç½
+∩Ç╜ is the angle bisector of 
+C
+∩âÉ. If equation of BC is given by ax
+by
+5
+0
+∩Ç¡
+∩Ç¡
+∩Ç╜, 
+then the value of a
+b
+∩Ç¡
+ is_______ where a and b are coprime,a,b
+N
+∩âÄ
+ 
+ 
+1)1 
+2)2 
+3)3 
+4)4 
+2. 
+The point ∩Ç¿
+∩Ç⌐
+2m,m 1
+∩Ç¡
+∩Ç½
+ is an interior point of the smaller region bounded by the circle 
+2
+2
+x
+y
+4
+∩Ç½
+∩Ç╜ and the parabola 
+2
+y
+4x
+∩Ç╜
+. Then m belongs to the interval 
+ 
+1) 5
+2 6
+m
+1
+∩Ç¡∩Ç¡
+∩Ç╝
+∩Ç╝∩Ç¡2) 0
+m
+4
+∩Ç╝
+∩Ç╝ 
+3) 
+3
+5
+2 6
+m
+5
+∩Ç¡∩Ç½
+∩Ç╝
+∩Ç╝
+ 4) 1
+m
+5
+2 6
+∩Ç¡∩Ç╝
+∩Ç╝∩Ç¡∩Ç½
+ 
+3. 
+Choose the correct matching from list I to II from the codes given below. 
+ 
+List-I 
+List-II 
+(p) 
+∩Ç¿∩Ç⌐
+3
+f x
+x
+∩Ç╜
+ 
+(1) 
+continuous in ∩Ç¿
+∩Ç⌐
+1,1
+∩Ç¡
+ 
+(q) 
+∩Ç¿∩Ç⌐
+f x
+x
+∩Ç╜
+ is 
+(2) 
+discontinuous in ∩Ç¿
+∩Ç⌐
+1,1
+∩Ç¡
+ 
+(r) 
+∩Ç¿∩Ç⌐
+1
+f x
+sin
+x
+∩Ç¡
+∩Ç╜
+ is 
+(3) 
+differentiable in ∩Ç¿
+∩Ç⌐
+0,1  
+(s) 
+∩Ç¿∩Ç⌐
+1
+f x
+cos
+x
+∩Ç¡
+∩Ç╜
+ is 
+(4) 
+not differentiable in atleast at one 
+point in ∩Ç¿
+∩Ç⌐
+1,1
+∩Ç¡
+ 
+ 
+ 
+(5) 
+differentiable in ∩Ç¿
+∩Ç⌐
+1,1
+∩Ç¡
+ 
+ 
+Codes: 
+ 
+1) p
+1,3,5;q
+2,4;r
+1,3,4;s
+1,3,5
+∩Ç¡
+∩Ç¡
+∩Ç¡
+∩Ç¡
+ 
+2) p
+2, 4;q
+1,3,5;r
+1,3,5;s
+1,3,4
+∩Ç¡
+∩Ç¡
+∩Ç¡
+∩Ç¡
+ 
+ 
+3) p
+1,3,4;q
+1,3,4;r
+2,4;s
+2, 4
+∩Ç¡
+∩Ç¡
+∩Ç¡
+∩Ç¡
+ 
+4) p
+1,3,5;q
+1,3,4;r
+1,3,4;s
+1,3,4
+∩Ç¡
+∩Ç¡
+∩Ç¡
+∩Ç¡
+ 
+4. 
+If A and B are square matrices of order n ├ù n such that 
+2
+2
+A
+B
+(A B)(A
+B),
+∩Ç¡
+∩Ç╜
+∩Ç¡
+∩Ç½
+then which 
+of the following will always be true? 
+ 
+1) A = B 
+ 
+2) AB = BA 
+ 
+ 
+3) either of A or B is a zero matrix 
+4) either of A or B is an identity matrix 
+
+
+
+================================================================================
+FILE: chaitanya_2.pdf  |  Folder: questions  |  Pages: 16
+================================================================================
+
+--- Page 1 (chars: 390) ---
+ 
+SEC: Sr.S60_Nu-XL-500 & ALL                      JEE-MAIN                       
+ 
+Date: 01-01-2026 
+Time: 7.30AM to 10.30AM                                   IGTM-04 
+                         Max. Marks:300  
+ 
+ 
+01-01-2026_ Sr.Super60_Nu_XL-500 & ALL_Jee-Main_IGTM-04_Test Syllabus 
+MATHEMATICS 
+: 
+TOTAL SYLLABUS 
+ 
+PHYSICS 
+ 
+:  
+TOTAL SYLLABUS  
+CHEMISTRY     
+:  
+TOTAL SYLLABUS 
+ 
+
+
+
+--- Page 2 (chars: 326) ---
+      SRI CHAITANYA IIT ACADEMY, INDIA             01-01-2026_Sr.S60_Nu_XL-500 & All Streams_Jee Main_IGTM-04_Q.P.      
+Sec:  Sr.S60_Nu-XL-500 & All Streams                       
+                                                                                   Page 2 
+ 
+ 
+1. 
+ 
+ 
+2. 
+ 
+3. 
+ 
+4. 
+ 
+5. 
+ 
+6. 
+ 
+7. 
+ 
+8. 
+ 
+
+
+
+--- Page 3 (chars: 327) ---
+      SRI CHAITANYA IIT ACADEMY, INDIA             01-01-2026_Sr.S60_Nu_XL-500 & All Streams_Jee Main_IGTM-04_Q.P.      
+Sec:  Sr.S60_Nu-XL-500 & All Streams                       
+                                                                                   Page 3 
+9. 
+ 
+10. 
+ 
+11. 
+ 
+12. 
+ 
+13. 
+ 
+14. 
+ 
+15. 
+ 
+16. 
+ 
+
+
+
+================================================================================
+FILE: narayana_1.pdf  |  Folder: questions  |  Pages: 18
+================================================================================
+
+--- Page 1 (chars: 1068) ---
+GTM-15 (09-01-2025) 
+ 
+Page | 1  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Sec: SR.IIT_*CO-SC(MODEL-A& APEX) 
+GTM-15 
+ 
+ 
+      Date: 09.01.2025 
+Time: 3.00Hrs. 
+                          JEE MAIN MODEL 
+     Max. Marks: 300  
+PHYSICS 
+ 
+ 
+ 
+MAX.MARKS: 100 
+SECTION ΓÇô I 
+(SINGLE CORRECT ANSWER TYPE) 
+This section contains 20 multiple choice questions. Each question has 4 options (A), (B), (C) and 
+(D) for its answer, out of which ONLY ONE option can be correct. 
+Marking scheme: +4 for correct answer, 0 if not attempted and -1 if not correct. 
+  
+1.  
+A body projected vertically upwards with a certain speed from the top of a tower 
+reaches the ground in t1. If it is projected vertically downwards from the same point 
+with the same speed, it reaches the ground in t2. Time required to reach the ground, if 
+it is dropped from the top of the tower is 
+ 
+A) 
+1
+2
+t
+t   
+B) 
+1
+2
+t
+t
+∩Ç½
+ 
+C) 
+1
+2
+t
+t
+∩Ç¡
+  
+ 
+D)
+1 2
+t t  
+2. 
+When UV light of wavelength 300 nm is incident on the metal surface having work 
+function 2.13eV, electron emission takes place. The stopping potential is (Given hc = 
+
+
+
+--- Page 2 (chars: 1403) ---
+GTM-15 (09-01-2025) 
+ 
+Page | 2  
+ 
+ 
+ 
+ 
+1240eV nm) 
+ 
+A) 2V  
+B) 4.1V  
+C) 4V  
+D) 1.5V 
+3. 
+When kinetic energy of a body becomes 36 times of its original value, the percentage 
+increase in the momentum of the body will be 
+ 
+A) 600 %  
+B) 6 %  
+C) 60 %  
+D) 500 % 
+4. 
+Pressure inside a soap bubble is greater than the pressure outside by an amount : 
+ 
+(Given R = Radius of bubble, S = Surface tension of bubble) 
+ 
+A) S
+R   
+B) 2S
+R   
+C) 4R
+S   
+D) 4S
+R  
+5. 
+A particle moves in a straight line so that its displacement x at any time t is given by 
+x2 = 1 + t2. Its acceleration at any time t is xΓÇôn where n = ___ 
+ 
+A) 1 
+B) 2 
+C) 3 
+D) 4 
+6. 
+Assuming the earth to be a sphere of uniform mass density, a body weighed 300 N on 
+the surface of earth. How much it would weigh at 4
+R  depth under surface of earth? 
+ 
+A) 75 N  
+B) 225 N  
+C) 300 N  
+D) 375 N  
+7. 
+Given below are two statements: 
+ 
+Statement ΓÇô I: Dimensions of specific heat is 
+2
+2
+1
+LT K
+∩Ç¡
+∩Ç¡
+∩â⌐
+∩â╣
+∩â½
+∩â╗. 
+ 
+Statement ΓÇô II: Dimensions of gas constant is 
+2
+1
+1
+MLT K
+∩Ç¡
+∩Ç¡
+∩â⌐
+∩â╣
+∩â½
+∩â╗. 
+ 
+In the light of the above statements, choose the most appropriate answer from the 
+option given below. 
+ 
+A) Statement ΓÇô I is incorrect but Statement ΓÇô II is correct 
+ 
+B) Both Statement ΓÇô I and Statement ΓÇô II are incorrect 
+ 
+C) Both Statement ΓÇô I and Statement ΓÇô II are correct 
+ 
+D) Statement ΓÇô I is correct but Statement ΓÇô II is incorrect 
+ 
+ 
+
+
+
+--- Page 3 (chars: 1574) ---
+GTM-15 (09-01-2025) 
+ 
+Page | 3  
+ 
+ 
+ 
+ 
+8. 
+Two identical conducting spheres P and S with charge Q on each, repel each other 
+with a force 16 N. A third identical uncharged conducting sphere R is successively 
+brought in contact with the two spheres. The new force of repulsion between P and S 
+is 
+ 
+A) 12 N  
+B) 4 N  
+C) 1N  
+D) 6 N 
+9. 
+The number of electrons flowing per second in the filament of a 110W bulb operating 
+at 220V is (Given e = 1.6 ├ù 10ΓÇô19 C) 
+ 
+A) 6.25├ù1017  
+B) 31.25├ù1017  
+C) 6.25├ù1018  
+D) 1.25├ù1019 
+10. 
+Energy of 10 non rigid diatomic molecules at temperature T is 
+ 
+A) 70
+B
+K T   
+B) 7
+2 RT   
+C) 35
+B
+K T   
+D) 35RT  
+11. 
+A body of weight 200 N is suspended from a tree branch through a chain of mass 
+10kg. The branch pulls the chain by a force equal to (if g = 10m/sB) 
+ 
+A) 200 N  
+B) 300 N  
+C) 100 N  
+D) 150 N 
+12. 
+The acceptor level of a p ΓÇô type semiconductor is 6 eV. The maximum wavelength of 
+light which can create a hole would be (Given hc = 1242eV nm) 
+ 
+A) 207 nm  
+B) 103.5 nm  
+C) 414 nm  
+D) 407 nm 
+13. 
+In finding out refractive index of glass slab the following observation were made 
+through travelling microscope 50 vernier scale division = 49 MSD; 20 divisions on 
+main scale in each cm 
+ 
+For mark on paper MSR = 8.45 cm, VC = 26 
+ 
+For mark on paper seen through slab MSR = 7.12 cm, VC = 41 
+ 
+For powder particle on the top surface of the glass slab MSR = 4.05 cm, VC = 1 
+ 
+(MSR = Main Scale Reading, VC = Vernier Coincidence) 
+ 
+Refractive index of the glass slab is 
+ 
+A) 1.24  
+B) 1.52  
+C) 1.35  
+D) 1.42 
+ 
+
+
+
+================================================================================
+FILE: narayana_2.pdf  |  Folder: questions  |  Pages: 20
+================================================================================
+
+--- Page 1 (chars: 0) ---
+
+
+
+--- Page 2 (chars: 0) ---
+
+
+
+--- Page 3 (chars: 0) ---
+
+
+
+================================================================================
+FILE: chaitanya_key_1.pdf  |  Folder: solutions  |  Pages: 16
+================================================================================
+
+--- Page 1 (chars: 1289) ---
+      SRI CHAITANYA IIT ACADEMY, INDIA              31-12-25_ Sr. XL-500, Sr.S60(N&S), Elite, IAS & LIIT_Jee-Main_GTM-07_KEY &SOLΓÇÖS                          
+Sec: Sr. XL-500, Sr.S60(N&S),L Elite, IAS & LIIT                          
+                                     Page 1 
+ 
+    Sri Chaitanya IIT Academy.,India. 
+∩Çá∩é╡ A.P ∩é╡ T.S ∩é╡ KARNATAKA ∩é╡ TAMILNADU   ∩é╡ MAHARASTRA ∩é╡ DELHI   ∩é╡ RANCHI 
+A right Choice for the Real Aspirant 
+ICON Central Office - Madhapur - Hyderabad 
+SEC: Sr. XL-500, Sr.S60(N&S), Elite, IAS & LIIT          JEE-MAIN 
+                           Date: 31-12-2025 
+Time: 09.00Am to 12.00Pm                                           GTM-07                                    Max. Marks: 300 
+KEY SHEET 
+MATHEMATICS 
+1 
+2 
+2 
+4 
+3 
+4 
+4 
+2 
+5 
+3 
+6 
+3 
+7 
+3 
+8 
+3 
+9 
+1 
+10 
+1 
+11 
+2 
+12 
+3 
+13 
+4 
+14 
+3 
+15 
+2 
+16 
+4 
+17 
+2 
+18 
+3 
+19 
+4 
+20 
+4 
+21 
+6 
+22 
+2 
+23 
+6 
+24 
+6 
+25 
+1 
+ 
+PHYSICS  
+26 
+3 
+27 
+3 
+28 
+2 
+29 
+1 
+30 
+2 
+31 
+3 
+32 
+1 
+33 
+1 
+34 
+1 
+35 
+4 
+36 
+2 
+37 
+4 
+38 
+2 
+39 
+1 
+40 
+3 
+41 
+2 
+42 
+3 
+43 
+1 
+44 
+4 
+45 
+1 
+46 
+9 
+47 
+4 
+48 
+4 
+49 
+15 
+50 
+4 
+ 
+CHEMISTRY 
+51 
+3 
+52 
+3 
+53 
+4 
+54 
+3 
+55 
+4 
+56 
+1 
+57 
+4 
+58 
+4 
+59 
+4 
+60 
+3 
+61 
+4 
+62 
+3 
+63 
+2 
+64 
+1 
+65 
+4 
+66 
+4 
+67 
+4 
+68 
+2 
+69 
+2 
+70 
+1 
+71 
+24 
+72 
+300 
+73 
+4 
+74 
+15 
+75 
+318 
+ 
+ 
+ 
+
+
+
+--- Page 2 (chars: 1804) ---
+      SRI CHAITANYA IIT ACADEMY, INDIA              31-12-25_ Sr. XL-500, Sr.S60(N&S), Elite, IAS & LIIT_Jee-Main_GTM-07_KEY &SOLΓÇÖS                           
+Sec: Sr. XL-500, Sr.S60(N&S),L Elite, IAS & LIIT                          
+                                     Page 2 
+ 
+SOLUTION 
+MATHEMATICS 
+1. 
+The point B is ∩Ç¿
+∩Ç⌐
+2,1  
+ 
+( B is image of A about line y = x ) 
+ 
+Image of 
+∩Ç¿
+∩Ç⌐
+A 1,2 in the line x- 2 y+1= 0is 
+ 
+Given by 
+1
+2
+4
+2
+5
+x
+y
+y
+∩Ç¡
+∩Ç¡
+∩Ç╜
+∩Ç╜
+∩Ç¡
+ ∩ü£coordinates of the point are 9 2
+,
+5 5
+∩âª
+∩â╢
+∩âº
+∩â╖
+∩â¿
+∩â╕ 
+ 
+Since this point lies on BC . 
+ 
+∩ü£equation of BC is 3x- y-5 = 0 
+2
+a
+b
+∩ü£∩Ç½
+∩Ç╜ 
+2. 
+An interior point of the smaller region is interior point of the parabola as well as of the 
+circle. ∩Ç¿
+∩Ç⌐
+∩Ç¿
+∩Ç⌐
+2
+1
+4
+2
+0
+m
+m
+∩ü£
+∩Ç½
+∩Ç¡
+∩Ç¡
+∩Ç╝ 
+ 
+And 
+∩Ç¿
+∩Ç⌐
+2
+2
+4
+1
+4
+0
+m
+m
+∩Ç½
+∩Ç½
+∩Ç¡
+∩Ç╝ 
+ 
+i.e 
+2
+10
+1
+0
+m
+m
+∩Ç½
+∩Ç½∩Ç╝ 
+ 
+and 
+2
+5
+2
+3
+0
+m
+m
+∩Ç½
+∩Ç¡
+∩Ç╝ 
+ 
+ie. 10
+96
+10
+100
+4
+2
+2
+m
+∩Ç¡
+∩Ç¡
+∩Ç¡
+∩Ç½
+∩Ç¡
+∩Ç╝
+∩Ç╝
+ and 2
+8
+2
+4
+60
+10
+10
+m
+∩Ç¡∩Ç¡
+∩Ç¡∩Ç½
+∩Ç½
+∩Ç╝
+∩Ç╝
+ 
+ 
+ie. 5
+2 6
+5
+2 6
+m
+∩Ç¡∩Ç¡
+∩Ç╝
+∩Ç╝∩Ç¡∩Ç½
+ 
+ 
+and 
+3
+1
+5
+m
+∩Ç¡∩Ç╝
+∩Ç╝
+ie. 1
+2 6
+5
+m
+∩Ç¡∩Ç╝
+∩Ç╝
+∩Ç¡ 
+3. 
+∩Ç¿∩Ç⌐∩Ç¿∩Ç⌐
+3
+P f x = x is continuous and differentiable 
+ 
+∩Ç¿∩Ç⌐∩Ç¿∩Ç⌐
+Q f x =
+x is continuous 
+ 
+∩Ç¿∩Ç⌐
+1
+'
+.
+2
+x
+f
+x
+x
+x
+∩Ç╜
+{does not exist at 
+0
+x ∩Ç╜} 
+ 
+∩Ç¿∩Ç⌐∩Ç¿∩Ç⌐
+-1
+R f x = sin x is continuous 
+∩Ç¿∩Ç⌐
+1
+1
+2
+sin
+1
+'
+.
+sin
+1
+x
+f
+x
+x
+x
+∩Ç¡
+∩Ç¡
+∩Ç╜
+∩Ç¡
+ 
+ 
+{does not exist at x=0} 
+ 
+∩Ç¿∩Ç⌐∩Ç¿∩Ç⌐
+1
+S f x
+cos
+x
+∩Ç¡
+∩Ç╜
+is continuous  
+ 
+∩Ç¿∩Ç⌐
+2
+1
+'
+.
+1
+x
+f
+x
+x
+x
+∩Ç¡
+∩Ç╜
+∩Ç¡
+{does not exist at x=0} 
+4. 
+Given condition 
+2
+2
+A
+B
+(A
+B)(A
+B)
+∩Ç¡
+∩Ç╜
+∩Ç¡
+∩Ç½
+ 
+ 
+    
+2
+2
+2
+2
+A
+B
+A
+AB
+BA
+B
+∩â₧
+∩Ç¡
+∩Ç╜
+∩Ç½
+∩Ç¡
+∩Ç¡
+ 
+   
+AB
+BA
+∩â₧
+∩Ç╜
+. 
+5.     Term independent of x will be 10
+5
+5
+5
+C (sin
+) (cos
+)
+∩üí
+∩üí 
+10
+5
+5
+5
+C sin (2 )
+2
+∩Ç╜
+∩üí 
+ 
+      So maximum value will be 
+10
+5
+5
+C
+2
+∩Ç╜
+ 
+6. 
+In the neighbourhood of x = 0, f(x) = log 2 ΓÇô sin x 
+ 
+∩ü£g(x) = f(f(x)) = log2 ΓÇô sin (f(x)) 
+ 
+log 2 ΓÇô sin(log 2 ΓÇô sin x) 
+ 
+Since g(x) is differentiable at x = 0, 
+ 
+∩ü£g '(x) = ΓÇô cos(log2 ΓÇô sinx) (ΓÇôcosx) 
+g'(0)
+cos(log2)
+∩â₧
+∩Ç╜
+ 
+
+
+
+--- Page 3 (chars: 1468) ---
+      SRI CHAITANYA IIT ACADEMY, INDIA              31-12-25_ Sr. XL-500, Sr.S60(N&S), Elite, IAS & LIIT_Jee-Main_GTM-07_KEY &SOLΓÇÖS                          
+Sec: Sr. XL-500, Sr.S60(N&S),L Elite, IAS & LIIT                          
+                                     Page 3 
+ 
+7. 
+∩Ç¿∩Ç⌐
+∩Ç¿∩Ç⌐
+2
+f x +3g x = x + x+6 ΓÇªΓÇª..(i) 
+ 
+∩Ç¿∩Ç⌐
+∩Ç¿∩Ç⌐
+2
+f x + 2g x = x + 2 ΓÇªΓÇªΓÇª..(ii) 
+ 
+Hence ∩Ç¿∩Ç⌐
+4
+g x
+x
+∩Ç╜
+∩Ç½ 
+ 
+∩Ç¿∩Ç⌐
+2
+2
+6
+f x
+x
+x
+∩ü£
+∩Ç╜
+∩Ç¡
+∩Ç¡ 
+ 
+Now ∩Ç¿
+∩Ç⌐
+∩Ç¿
+∩Ç⌐
+∩Ç¿
+∩Ç⌐∩Ç¿
+∩Ç⌐∩Ç¿
+∩Ç⌐
+2
+2
+2
+tan
+tan
+8
+4
+tan
+tan
+2tan
+6
+8
+2tan
+2
+g
+x
+f
+x
+x
+x
+x
+x
+∩Ç¡
+∩Ç¡
+∩Ç½
+∩Ç½
+∩Ç¡
+∩Ç¡
+∩Ç¡
+∩Ç¡
+∩Ç╜
+∩Ç½ 
+ 
+∩Ç¿
+∩Ç⌐
+∩Ç¿
+∩Ç⌐
+∩Ç¿
+∩Ç⌐
+/4
+/4
+2
+0
+0
+ln
+tan
+tan
+8
+ln 2tan
+2
+J
+g
+x
+f
+x
+dx
+x
+dx
+∩ü░
+∩ü░
+∩Ç╜
+∩Ç¡
+∩Ç¡
+∩Ç╜
+∩Ç½
+∩â▓
+∩â▓
+ 
+ 
+∩Ç¿
+∩Ç⌐
+∩Ç¿∩Ç⌐
+/4
+0
+ln 2tan
+2
+...... 1
+J
+x
+dx
+∩ü░
+∩Ç╜
+∩Ç½
+∩â▓
+ 
+ 
+Using property 
+ 
+∩Ç¿∩Ç⌐
+/4
+0
+4
+ln
+...... 2
+1
+tan
+J
+dx
+x
+∩ü░
+∩âª
+∩â╢
+∩Ç╜
+∩âº
+∩â╖
+∩Ç½
+∩â¿
+∩â╕
+∩â▓
+ 
+ 
+Adding equation (1) &(2) we get 
+3
+ln 2
+8
+J
+∩ü░
+∩Ç╜
+ 
+8. 
+For 
+∩Ç¿
+∩Ç⌐
+2
+1
+1,4 :
+1,
+:
+4
+y
+y
+C
+y
+x
+∩â⌐
+∩â╣
+∩âÄ
+∩Ç╜
+∩Ç╜
+∩â½
+∩â╗
+ 
+ 
+For 
+∩Ç¿
+∩Ç⌐
+2
+2
+1,4 ;
+1,
+:
+4
+X
+x
+C
+x
+y
+∩â⌐
+∩â╣
+∩âÄ
+∩Ç╜
+∩Ç╜
+∩â½
+∩â╗
+ 
+ 
+ 
+ 
+Area 
+∩Ç¿
+∩Ç⌐
+2
+2
+4
+1
+2
+11
+2
+1
+2
+.
+4
+3
+x
+x
+dx
+x
+dx
+sq units
+∩âª
+∩â╢
+∩Ç╜
+∩Ç¡
+∩Ç½
+∩Ç¡
+∩Ç╜
+∩âº
+∩â╖
+∩â¿
+∩â╕
+∩â▓
+∩â▓
+ 
+9. 
+2
+y = ax  
+1
+2
+2
+dy
+dy
+ax
+a
+dx
+x dx
+∩â₧
+∩Ç╜
+∩â₧
+∩Ç╜
+ 
+ 
+Now equation of curve 
+2
+1
+2
+dy
+y
+x
+x dx
+∩Ç╜
+ 
+2
+x dy
+y
+dx
+∩â₧
+∩Ç╜
+ 
+ 
+Orthogonal trajectory 
+2
+dx
+y
+dy
+x
+∩Ç¡
+∩Ç╜
+ 
+2
+2
+2
+2
+2
+2
+x
+x
+y
+c
+y
+c
+∩Ç╜∩Ç¡
+∩Ç½
+∩â₧
+∩Ç½
+∩Ç╜ 
+ 
+This is the equation of ellipse 
+10. 
+∩Ç¿
+∩Ç⌐
+∩Ç¿
+∩Ç⌐∩Ç¿
+∩Ç⌐
+,
+1
+1
+1
+p
+p
+q
+q
+∩üí
+∩üó
+∩üí∩üó
+∩üí
+∩üó
+∩Ç½
+∩Ç╜
+∩Ç╜∩Ç¡
+∩Ç½
+∩â₧
+∩Ç½
+∩Ç½
+∩Ç╜∩Ç¡ 
+∩Ç¿
+∩Ç⌐
+∩Ç¿
+∩Ç⌐
+∩Ç¿
+∩Ç⌐
+∩Ç¿
+∩Ç⌐
+2
+2
+2
+2
+1
+1
+1
+1
+1
+1
+q
+q
+∩üí
+∩üó
+∩üí
+∩üó
+∩Ç½
+∩Ç½
+∩Ç½
+∩Ç½
+∩Ç½
+∩Ç¡
+∩Ç½
+∩Ç½
+∩Ç¡
+∩Ç¿
+∩Ç⌐
+∩Ç¿
+∩Ç⌐∩Ç¿
+∩Ç⌐
+∩Ç¿
+∩Ç⌐
+∩Ç¿
+∩Ç⌐
+∩Ç¿
+∩Ç⌐
+∩Ç¿
+∩Ç⌐∩Ç¿
+∩Ç⌐
+∩Ç¿
+∩Ç⌐
+∩Ç¿
+∩Ç⌐
+2
+2
+2
+2
+2
+2
+2 1
+1
+1
+1
+1
+2 1
+1
+1
+1
+q
+q
+q
+q
+∩üí
+∩üó
+∩üí
+∩üó
+∩Ç¡
+∩Ç½
+∩Ç¡
+∩Ç½
+∩Ç½
+∩Ç½
+∩Ç╜
+∩Ç╜
+∩Ç¡
+∩Ç½
+∩Ç¡
+∩Ç½
+∩Ç½
+∩Ç½
+ 
+11. 
+ 
+ 
+ 
+
+
+
+================================================================================
+FILE: chaitanya_key_2.pdf  |  Folder: solutions  |  Pages: 20
+================================================================================
+
+--- Page 1 (chars: 945) ---
+ 
+SEC: Sr.S60_Nu-XL-500 & ALL                      JEE-MAIN                       
+ 
+Date: 01-01-2026 
+Time: 7.30AM to 10.30AM                                   IGTM-04 
+                         Max. Marks:300  
+KEY SHEET 
+MATHEMATICS 
+1.  
+3 
+2.  
+3 
+3.  
+3 
+4.  
+2 
+5.  
+4 
+6.  
+2 
+7.  
+1 
+8.  
+2 
+9.  
+3 
+10.  
+3 
+11.  
+3 
+12.  
+1 
+13.  
+4 
+14.  
+1 
+15.  
+1 
+16.  
+3 
+17.  
+2 
+18.  
+1 
+19.  
+2 
+20.  
+3 
+21.  
+34 
+22.  
+34 
+23.  
+216 
+24.  
+2035 
+25.  
+16 
+ 
+PHYSICS 
+26.  
+3 
+27.  
+1 
+28.  
+2 
+29.  
+4 
+30.  
+4 
+31.  
+3 
+32.  
+2 
+33.  
+1 
+34.  
+1 
+35.  
+2 
+36.  
+3 
+37.  
+2 
+38.  
+1 
+39.  
+4 
+40.  
+2 
+41.  
+1 
+42.  
+4 
+43.  
+1 
+44.  
+4 
+45.  
+1 
+46.  
+1 
+47.  
+1 
+48.  
+1200 
+49.  
+1 
+50.  
+2 
+ 
+CHEMISTRY 
+51.  
+1 
+52.  
+1 
+53.  
+1 
+54.  
+2 
+55.  
+2 
+56.  
+4 
+57.  
+4 
+58.  
+1 
+59.  
+1 
+60.  
+4 
+61.  
+4 
+62.  
+1 
+63.  
+3 
+64.  
+4 
+65.  
+1 
+66.  
+2 
+67.  
+4 
+68.  
+1 
+69.  
+1 
+70.  
+4 
+71.  
+372 
+72.  
+2435 
+73.  
+74 
+74.  
+6 
+75.  
+1 
+ 
+
+
+
+--- Page 2 (chars: 332) ---
+      SRI CHAITANYA IIT ACADEMY, INDIA                 01-01-2026_Sr.S60_Nu_XL-500 & All Streams_Jee Main_IGTM-04_Key & Sols.      
+Sec: Sr.S60_Nu-XL-500 & All Streams                       
+                                                                                   Page 2 
+ 
+SOLUTIONS 
+MATHEMATICS 
+1. 
+ 
+2. 
+ 
+3. 
+ 
+4. 
+ 
+
+
+
+--- Page 3 (chars: 304) ---
+      SRI CHAITANYA IIT ACADEMY, INDIA                 01-01-2026_Sr.S60_Nu_XL-500 & All Streams_Jee Main_IGTM-04_Key & Sols.      
+Sec: Sr.S60_Nu-XL-500 & All Streams                       
+                                                                                   Page 3 
+5. 
+ 
+6. 
+ 
+ 
+7. 
+ 
+ 
+
+
+
+================================================================================
+FILE: narayana_key_1.pdf  |  Folder: solutions  |  Pages: 23
+================================================================================
+
+--- Page 1 (chars: 788) ---
+ 
+1 
+ 
+ 
+ 
+SEC:: SR. JEE MAINS APEX 
+GTM-15 
+     Date: 09.01.2025 
+Time: 3.00Hrs. 
+               JEE MAINS -2025 
+Max. Marks: 300 M 
+KEYSHEET 
+PHYSICS 
+1 
+2 
+3 
+4 
+5 
+6 
+7 
+8 
+9 
+10 
+D 
+A 
+D 
+D 
+C 
+B 
+D 
+D 
+B 
+C 
+11 
+12 
+13 
+14 
+15 
+16 
+17 
+18 
+19 
+20 
+B 
+A 
+D 
+B 
+D 
+C 
+D 
+D 
+D 
+D 
+21 
+22 
+23 
+24 
+25 
+ 
+ 
+ 
+ 
+ 
+4 
+10 
+160 
+80 
+740 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+CHEMISTRY 
+26 
+27 
+28 
+29 
+30 
+31 
+32 
+33 
+34 
+35 
+D 
+B 
+B 
+D 
+A 
+D 
+A 
+C 
+B 
+D 
+36 
+37 
+38 
+39 
+40 
+41 
+42 
+43 
+44 
+45 
+D 
+C 
+D 
+D 
+B 
+D 
+D 
+C 
+D 
+B 
+46 
+47 
+48 
+49 
+50 
+ 
+ 
+ 
+ 
+ 
+543 
+12 
+0 
+287 
+17 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+MATHEMATICS  
+51 
+52 
+53 
+54 
+55 
+56 
+57 
+58 
+59 
+60 
+A 
+A 
+D 
+B 
+D 
+B 
+A 
+D 
+D 
+C 
+61 
+62 
+63 
+64 
+65 
+66 
+67 
+68 
+69 
+70 
+B 
+A 
+B 
+A 
+D 
+A 
+D 
+B 
+A 
+A 
+71 
+72 
+73 
+74 
+75 
+ 
+ 
+ 
+ 
+ 
+43 
+61 
+71 
+38 
+17 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+
+
+--- Page 2 (chars: 133) ---
+ 
+2 
+ 
+PHYSICS 
+1. 
+ 
+2. 
+ 
+3. 
+ 
+4. 
+For the equilibrium of any hemisphere of bubble 
+2
+4
+4
+S
+P R
+S
+R
+P
+R
+∩ü░
+∩ü░
+∩üä
+∩Ç╜
+∩â₧∩üä∩Ç╜
+ 
+5. 
+ 
+6. 
+ 
+
+
+
+--- Page 3 (chars: 87) ---
+ 
+3 
+ 
+7. 
+ 
+8. 
+ 
+9. 
+P = VI 
+ 
+10. 
+ 
+11. T = 200 + 10 ├ù 10 = 300 N 
+ 
+12. 
+ 
+13. 
+ 
+
+
+
+================================================================================
+FILE: narayana_key_2.pdf  |  Folder: solutions  |  Pages: 20
+================================================================================
+
+--- Page 1 (chars: 0) ---
+
+
+
+--- Page 2 (chars: 0) ---
+
+
+
+--- Page 3 (chars: 0) ---
+
+

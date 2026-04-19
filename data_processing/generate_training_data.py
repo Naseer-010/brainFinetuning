@@ -156,7 +156,8 @@ def call_openai(system: str, user_message: str, max_retries: int = 3) -> Optiona
 
 
 def call_ollama(
-    system: str, user_message: str, model: str = "qwen2.5-coder:7b"
+    system: str, user_message: str, model: str = "qwen2.5-coder:7b",
+    force_json: bool = False,
 ) -> Optional[str]:
     """Call local Ollama API."""
     url = "http://localhost:11434/api/generate"
@@ -165,10 +166,12 @@ def call_ollama(
         "system": system,
         "prompt": user_message,
         "stream": False,
-        "options": {"temperature": 0.2},
+        "options": {"temperature": 0.2, "num_predict": 4096},
     }
+    if force_json:
+        payload["format"] = "json"
     try:
-        response = requests.post(url, json=payload, timeout=120)
+        response = requests.post(url, json=payload, timeout=300)
         response.raise_for_status()
         return response.json().get("response")
     except Exception as e:
@@ -176,14 +179,17 @@ def call_ollama(
         return None
 
 
-def call_api(system: str, user_message: str, api: str = "claude") -> Optional[str]:
+def call_api(
+    system: str, user_message: str, api: str = "claude",
+    force_json: bool = False,
+) -> Optional[str]:
     """Unified API caller."""
     if api == "claude":
         return call_claude(system, user_message)
     elif api == "openai":
         return call_openai(system, user_message)
     elif api == "ollama":
-        return call_ollama(system, user_message)
+        return call_ollama(system, user_message, force_json=force_json)
     else:
         raise ValueError(f"Unknown API: {api}")
 
@@ -202,8 +208,10 @@ def _validate_manim_syntax(code: str) -> tuple[bool, str]:
 
 def _validate_manim_render(code: str, timeout: int = 120) -> tuple[bool, str]:
     """Full render validation — tries Docker first, falls back to local manim."""
+    tmp_dir = Path(__file__).parent.parent / "data" / "_tmp_manim"
+    tmp_dir.mkdir(parents=True, exist_ok=True)
     with tempfile.NamedTemporaryFile(
-        mode="w", suffix=".py", delete=False, dir="/tmp"
+        mode="w", suffix=".py", delete=False, dir=str(tmp_dir)
     ) as f:
         f.write(code)
         tmp_path = f.name
@@ -240,14 +248,17 @@ def _validate_manim_render(code: str, timeout: int = 120) -> tuple[bool, str]:
             capture_output=True,
             text=True,
             timeout=timeout,
-            cwd="/tmp",
+            cwd=str(tmp_dir),
         )
         success = result.returncode == 0
         return success, "" if success else result.stderr[-500:]
     except (FileNotFoundError, subprocess.TimeoutExpired) as e:
         return False, str(e)
     finally:
-        os.unlink(tmp_path)
+        try:
+            os.unlink(tmp_path)
+        except OSError:
+            pass
 
 
 def validate_manim_code(code: str, full_render: bool = False) -> tuple[bool, str]:
@@ -292,6 +303,60 @@ def _save_checkpoint(data: list, output_file: Path):
 
 # ─── Data Generation ────────────────────────────────────────────────────────
 
+import re as _re
+
+
+def _try_parse_brain_json(response: str) -> Optional[dict]:
+    """Try to parse brain model JSON response with multiple fallback strategies.
+
+    Returns parsed dict with 'scenes' array, or None if parsing fails.
+    """
+    if not response or not response.strip():
+        return None
+
+    text = response.strip()
+
+    # Strip markdown fences
+    if text.startswith("```json"):
+        text = text[len("```json"):].strip()
+    if text.startswith("```"):
+        text = text[3:].strip()
+    if text.endswith("```"):
+        text = text[:-3].strip()
+
+    # Strategy 1: Direct parse
+    try:
+        parsed = json.loads(text)
+        if isinstance(parsed, dict) and "scenes" in parsed:
+            return parsed
+        if isinstance(parsed, dict):
+            return parsed  # Accept even without scenes
+    except json.JSONDecodeError:
+        pass
+
+    # Strategy 2: Extract JSON object with regex
+    obj_match = _re.search(r'\{[\s\S]*\}', text)
+    if obj_match:
+        try:
+            parsed = json.loads(obj_match.group())
+            if isinstance(parsed, dict):
+                return parsed
+        except json.JSONDecodeError:
+            pass
+
+    # Strategy 3: Fix common issues (trailing commas)
+    fixed = _re.sub(r',\s*([}\]])', r'\1', text)
+    open_braces = fixed.count('{') - fixed.count('}')
+    fixed += '}' * max(0, open_braces)
+    try:
+        parsed = json.loads(fixed)
+        if isinstance(parsed, dict):
+            return parsed
+    except json.JSONDecodeError:
+        pass
+
+    return None
+
 
 def generate_brain_entry(
     question: dict,
@@ -310,30 +375,18 @@ def generate_brain_entry(
     if solution:
         user_text += f"\n\nReference solution:\n{solution['solution_text']}"
 
-    response = call_api(BRAIN_SYSTEM_PROMPT, user_text, api)
+    response = call_api(BRAIN_SYSTEM_PROMPT, user_text, api, force_json=True)
     if response is None:
         return None
 
     # Validate that the response is valid JSON with the scenes array
-    try:
-        parsed = json.loads(response)
-        if "scenes" not in parsed or not isinstance(parsed["scenes"], list):
-            print("  ⚠ Response missing 'scenes' array, retrying...")
-            response = call_api(BRAIN_SYSTEM_PROMPT, user_text, api)
-            if response:
-                parsed = json.loads(response)
-                if "scenes" not in parsed or not isinstance(parsed["scenes"], list):
-                    print("  ✗ Retry also missing 'scenes'. Skipping.")
-                    return None
-            else:
-                return None
-    except json.JSONDecodeError:
+    parsed = _try_parse_brain_json(response)
+    if parsed is None:
         print("  ⚠ Response not valid JSON, retrying...")
-        response = call_api(BRAIN_SYSTEM_PROMPT, user_text, api)
+        response = call_api(BRAIN_SYSTEM_PROMPT, user_text, api, force_json=True)
         if response:
-            try:
-                json.loads(response)
-            except json.JSONDecodeError:
+            parsed = _try_parse_brain_json(response)
+            if parsed is None:
                 print("  ✗ Retry also invalid JSON. Skipping.")
                 return None
         else:
