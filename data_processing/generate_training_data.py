@@ -6,8 +6,8 @@ Takes parsed question-solution JSON pairs and calls a frontier LLM API
 (Claude 3.5 Sonnet or GPT-4o) to synthesize fine-tuning data.
 
 Produces:
-    - brain_train.json : {system, instruction, output} with visual_type/narration/final_answer
-    - coder_train.json : {system, instruction, output} with Manim Python code
+    - brain_train.json : scenes-array schema matching orchestrator BrainOutput
+    - coder_train.json : validated Manim CE code (only renders that compile)
 
 Usage:
     python generate_training_data.py \
@@ -22,7 +22,9 @@ Prerequisites:
 import argparse
 import json
 import os
+import subprocess
 import sys
+import tempfile
 import time
 from pathlib import Path
 from typing import Optional
@@ -39,16 +41,38 @@ except ImportError:
 
 # ─── System Prompts ─────────────────────────────────────────────────────────
 
-BRAIN_SYSTEM_PROMPT = """You are an expert JEE Physics/Math visual reasoning engine.
-Given a question (with optional diagram description), produce a JSON object with:
+BRAIN_SYSTEM_PROMPT = """You are an expert JEE (Joint Entrance Examination) teacher and visual explainer.
+Given a question (with optional diagram description), you must solve it and structure the explanation into discrete visual scenes for animation.
+
+OUTPUT FORMAT: You MUST respond with ONLY a valid JSON object.
+The JSON schema MUST be:
 {
-    "visual_type": "string — one of: free_body_diagram, circuit, graph, geometric, optics, wave, projectile, energy_diagram, vector, other",
-    "key_concepts": ["list of physics/math concepts involved"],
-    "step_by_step": ["ordered reasoning steps"],
-    "narration": "A clear, teacher-like explanation suitable for text-to-speech narration of an educational video",
-    "final_answer": "The final answer with units"
+  "question_type": "physics | math | chemistry",
+  "topic": "specific topic name",
+  "difficulty": "easy | medium | hard",
+  "scenes": [
+    {
+      "scene_id": "scene_01",
+      "duration_estimate_sec": 7.5,
+      "narration": "Teacher-style narration for this scene",
+      "visual_type": "one of: equation_transform, axes_plot, free_body, projectile, circuit, ray_diagram, geometric, wave, energy_diagram, vector",
+      "visual_params": {
+        "description": "What to draw",
+        "labels": ["label1", "label2"],
+        "values": {}
+      },
+      "requires_codegen": false
+    }
+  ],
+  "final_answer": "Final numerical or symbolic answer with units"
 }
-Be precise with physics. Show all intermediate calculations in step_by_step."""
+
+Rules:
+- Break complex problems into 3-8 scenes
+- Each scene should be a self-contained visual step
+- Set requires_codegen=true ONLY for scenes that need custom Manim code beyond templates
+- Be precise with physics. Show all intermediate calculations across scenes.
+- Duration estimates should total 30-90 seconds for the full explanation."""
 
 CODER_SYSTEM_PROMPT = """You are an expert Manim Community Edition (v0.18+) code generator.
 Given a JSON schema describing a physics/math visualization, write complete, runnable Manim Python code.
@@ -133,6 +157,78 @@ def call_api(system: str, user_message: str, api: str = "claude") -> Optional[st
         raise ValueError(f"Unknown API: {api}")
 
 
+# ─── Manim Validation ────────────────────────────────────────────────────────
+
+
+def _validate_manim_syntax(code: str) -> tuple[bool, str]:
+    """Fast syntax-only check (no rendering needed)."""
+    try:
+        compile(code, "<manim_scene>", "exec")
+        return True, ""
+    except SyntaxError as e:
+        return False, f"SyntaxError: {e}"
+
+
+def _validate_manim_render(code: str, timeout: int = 120) -> tuple[bool, str]:
+    """Full render validation — tries Docker first, falls back to local manim."""
+    with tempfile.NamedTemporaryFile(
+        mode="w", suffix=".py", delete=False, dir="/tmp"
+    ) as f:
+        f.write(code)
+        tmp_path = f.name
+
+    try:
+        # Try Docker first
+        result = subprocess.run(
+            [
+                "docker",
+                "run",
+                "--rm",
+                "-v",
+                f"{tmp_path}:/scene.py:ro",
+                "manimcommunity/manim:stable",
+                "manim",
+                "render",
+                "/scene.py",
+                "-ql",
+                "--disable_caching",
+            ],
+            capture_output=True,
+            text=True,
+            timeout=timeout,
+        )
+        if result.returncode == 0:
+            return True, ""
+        # Docker failed — try local manim
+    except (FileNotFoundError, subprocess.TimeoutExpired):
+        pass
+
+    try:
+        result = subprocess.run(
+            ["manim", "render", tmp_path, "-ql", "--disable_caching"],
+            capture_output=True,
+            text=True,
+            timeout=timeout,
+            cwd="/tmp",
+        )
+        success = result.returncode == 0
+        return success, "" if success else result.stderr[-500:]
+    except (FileNotFoundError, subprocess.TimeoutExpired) as e:
+        return False, str(e)
+    finally:
+        os.unlink(tmp_path)
+
+
+def validate_manim_code(code: str, full_render: bool = False) -> tuple[bool, str]:
+    """Validate Manim code: syntax check + optional full render."""
+    ok, err = _validate_manim_syntax(code)
+    if not ok:
+        return False, err
+    if full_render:
+        return _validate_manim_render(code)
+    return True, ""
+
+
 # ─── Data Generation ────────────────────────────────────────────────────────
 
 
@@ -151,6 +247,31 @@ def generate_brain_entry(
     if response is None:
         return None
 
+    # Validate that the response is valid JSON with the scenes array
+    try:
+        parsed = json.loads(response)
+        if "scenes" not in parsed or not isinstance(parsed["scenes"], list):
+            print("  ⚠ Response missing 'scenes' array, retrying...")
+            response = call_api(BRAIN_SYSTEM_PROMPT, user_msg, api)
+            if response:
+                parsed = json.loads(response)
+                if "scenes" not in parsed or not isinstance(parsed["scenes"], list):
+                    print("  ✗ Retry also missing 'scenes'. Skipping.")
+                    return None
+            else:
+                return None
+    except json.JSONDecodeError:
+        print("  ⚠ Response not valid JSON, retrying...")
+        response = call_api(BRAIN_SYSTEM_PROMPT, user_msg, api)
+        if response:
+            try:
+                parsed = json.loads(response)
+            except json.JSONDecodeError:
+                print("  ✗ Retry also invalid JSON. Skipping.")
+                return None
+        else:
+            return None
+
     return {
         "system": BRAIN_SYSTEM_PROMPT,
         "instruction": question["text"],
@@ -163,32 +284,55 @@ def generate_brain_entry(
     }
 
 
-def generate_coder_entry(brain_entry: dict, api: str) -> Optional[dict]:
-    """Generate a coder training entry from a brain output."""
-    user_msg = (
-        "Create a Manim animation for this physics/math visualization:\n\n"
-        f"{brain_entry['output']}"
-    )
-
-    response = call_api(CODER_SYSTEM_PROMPT, user_msg, api)
-    if response is None:
-        return None
-
-    # Strip markdown fences if present
-    code = response.strip()
+def _strip_code_fences(code: str) -> str:
+    """Strip markdown code fences from LLM output."""
+    code = code.strip()
     if code.startswith("```python"):
         code = code[len("```python") :].strip()
     if code.startswith("```"):
         code = code[3:].strip()
     if code.endswith("```"):
         code = code[:-3].strip()
+    return code
 
-    return {
-        "system": CODER_SYSTEM_PROMPT,
-        "instruction": brain_entry["output"],
-        "output": code,
-        "metadata": brain_entry.get("metadata", {}),
-    }
+
+def generate_coder_entry(
+    brain_entry: dict, api: str, full_render: bool = False, max_attempts: int = 2
+) -> Optional[dict]:
+    """Generate a coder training entry with Manim validation.
+
+    Retries up to max_attempts times if the generated code fails validation.
+    Only validated, compiling code enters the training set.
+    """
+    user_msg = (
+        "Create a Manim animation for this physics/math visualization:\n\n"
+        f"{brain_entry['output']}"
+    )
+
+    for attempt in range(max_attempts):
+        response = call_api(CODER_SYSTEM_PROMPT, user_msg, api)
+        if response is None:
+            continue
+
+        code = _strip_code_fences(response)
+
+        # ── Quality Gate: validate before accepting ──
+        valid, error = validate_manim_code(code, full_render=full_render)
+        if valid:
+            return {
+                "system": CODER_SYSTEM_PROMPT,
+                "instruction": brain_entry["output"],
+                "output": code,
+                "metadata": brain_entry.get("metadata", {}),
+            }
+        else:
+            print(
+                f"  ⚠ Attempt {attempt + 1}/{max_attempts} failed validation: "
+                f"{error[:100]}"
+            )
+            time.sleep(1)
+
+    return None
 
 
 def match_questions_solutions(questions: list, solutions: list) -> list[tuple]:
@@ -218,6 +362,11 @@ def main():
     )
     parser.add_argument(
         "--skip-coder", action="store_true", help="Skip coder data generation"
+    )
+    parser.add_argument(
+        "--validate-render",
+        action="store_true",
+        help="Full Manim render validation (slower but catches runtime errors)",
     )
 
     args = parser.parse_args()
@@ -273,22 +422,28 @@ def main():
     # ── Generate coder data ──
     if not args.skip_coder:
         coder_data = []
+        coder_failed = 0
         for i, entry in enumerate(brain_data):
             print(
                 f"[Coder {i + 1}/{len(brain_data)}] Q#{entry['metadata']['question_number']}"
             )
-            coder_entry = generate_coder_entry(entry, args.api)
+            coder_entry = generate_coder_entry(
+                entry, args.api, full_render=args.validate_render
+            )
             if coder_entry:
                 coder_data.append(coder_entry)
-                print(f"  ✓ Generated")
+                print(f"  ✓ Validated & accepted")
             else:
-                print(f"  ✗ Failed")
+                coder_failed += 1
+                print(f"  ✗ Failed validation — excluded from dataset")
             time.sleep(0.5)
 
         coder_file = output_dir / "coder_train.json"
         with open(coder_file, "w") as f:
             json.dump(coder_data, f, indent=2, ensure_ascii=False)
         print(f"\nSaved {len(coder_data)} coder entries → {coder_file}")
+        if coder_failed:
+            print(f"  ⚠ {coder_failed} entries failed validation and were excluded")
 
     print("\n✅ Training data generation complete!")
 

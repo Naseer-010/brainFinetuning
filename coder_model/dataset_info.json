@@ -1,13 +1,10 @@
-### model_name ###
-
-coder_train:
-  file_name: coder_train_validated.json
-  formatting: sharegpt
-  columns:
-    messages: messages
-  tags:
-    role_tag: role
-    content_tag: content
-    user_tag: user
-    assistant_tag: assistant
-    system_tag: system
+{
+  "coder_train": {
+    "file_name": "coder_train.json",
+    "formatting": "sharegpt",
+    "columns": {
+      "messages": "messages",
+      "system": "system"
+    }
+  }
+}
