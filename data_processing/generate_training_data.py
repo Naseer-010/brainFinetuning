@@ -28,6 +28,8 @@ import tempfile
 import time
 from pathlib import Path
 from typing import Optional
+import requests
+
 
 # ─── Load env ───────────────────────────────────────────────────────────────
 sys.path.insert(0, str(Path(__file__).parent.parent))
@@ -147,12 +149,34 @@ def call_openai(system: str, user_message: str, max_retries: int = 3) -> Optiona
     return None
 
 
+def call_ollama(
+    system: str, user_message: str, model: str = "qwen2.5-coder:7b"
+) -> Optional[str]:
+    """Call local Ollama API."""
+    url = "http://localhost:11434/api/generate"
+    payload = {
+        "model": model,
+        "system": system,
+        "prompt": user_message,
+        "stream": False,
+        "options": {"temperature": 0.2},
+    }
+    try:
+        response = requests.post(url, json=payload)
+        response.raise_for_status()
+        return response.json().get("response")
+    except Exception as e:
+        print(f"  Ollama error: {e}")
+        return None
+
+
 def call_api(system: str, user_message: str, api: str = "claude") -> Optional[str]:
-    """Unified API caller."""
     if api == "claude":
         return call_claude(system, user_message)
     elif api == "openai":
         return call_openai(system, user_message)
+    elif api == "ollama":
+        return call_ollama(system, user_message)
     else:
         raise ValueError(f"Unknown API: {api}")
 
